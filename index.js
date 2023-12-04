@@ -9,12 +9,14 @@ const userRoutes = require('./routes/user')
 const taskRoutes = require('./routes/tasks')
 
 
+
 dotenv.config()
 connectionDB()  //database connection
 
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 app.use(bodyParser.json())
+
 
 app.use('/auth' , UserAuth)
 app.use('/user' , userRoutes)

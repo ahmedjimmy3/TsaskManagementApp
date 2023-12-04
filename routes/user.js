@@ -5,6 +5,8 @@ const verifyTokenAndAuthenticated = require('../middlewares/verifyAndAuthorized'
 
 
 router.post('/', userController.addUser) 
+router.post('/forget-password',userController.forgetPassword)
+router.patch('/resetPassword/:token',userController.resetPassword)
 router.get('/', verifyTokenAndAdmin ,userController.getAllUsers) 
 router.get('/:id', verifyTokenAndAuthenticated ,userController.getYourInfo) 
 router.put('/:id', verifyTokenAndAuthenticated ,userController.updateUser) 
