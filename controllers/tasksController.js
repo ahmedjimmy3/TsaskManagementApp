@@ -1,5 +1,8 @@
 const Task = require('../models/tasksModel')
+const logger = require('../services/services.log')
 
+const loggerServices = new logger('tasksController')
+const loggerError = new logger('tasksError')
 
 let addTask = async(req,res)=>{
     const userId = req.user.id
@@ -11,6 +14,7 @@ let addTask = async(req,res)=>{
         userId:userId
     })
     const savedTask = await newTask.save()
+    loggerServices.info("Task created successfully.")
     res.status(201).json({message:"Task created successfully." , savedTask})
 }
 
@@ -30,10 +34,12 @@ let getYourTasks = async (req,res)=>{
         }
         yourTasks = await Task.find({userId:userId})
         if(yourTasks.length == 0){
+            loggerError.error("You don't have any tasks")
             return res.status(404).json({message:"You don't have any tasks yet."})
         }
         else{
-            res.status(200).json({yourTasks})
+        loggerServices.info("Done")
+        res.status(200).json({yourTasks})
         }
     } catch (error) {
         res.status(500).json(error)
